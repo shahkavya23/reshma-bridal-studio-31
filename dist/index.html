@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#320810}
+  @keyframes rbsShimmer{0%{opacity:.2;transform:translate3d(-14%,0,0)}50%{opacity:.55}100%{opacity:.2;transform:translate3d(14%,0,0)}}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  ::selection{background:#7A1225;color:#EBC978}
+</style>
+</helmet>
+
+<div style="font-family:'Jost',system-ui,sans-serif;color:#3a0c14;background:#F5E9C8;overflow-x:hidden;">
+
+  <!-- ============ HEADER ============ -->
+  <header data-screen-label="Header" style="position:sticky;top:0;z-index:200;background:#320810;border-bottom:1px solid rgba(201,162,75,.28);">
+    <div style="max-width:1280px;margin:0 auto;padding:12px clamp(18px,5vw,54px);display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="#home" style="display:flex;align-items:center;gap:12px;text-decoration:none;flex:0 0 auto;">
+        <img src="assets/logo.png" alt="Reshma's Bridal Studio" style="height:56px;width:auto;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));"/>
+      </a>
+      <sc-if value="{{ desktopNav }}" hint-placeholder-val="{{ true }}">
+        <nav style="display:flex;align-items:center;gap:clamp(14px,1.6vw,26px);">
+          <sc-for list="{{ navLinks }}" as="n" hint-placeholder-count="7">
+            <a href="{{ n.href }}" style="color:#E7D6A6;text-decoration:none;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:400;transition:color .25s;" style-hover="color:#EBC978;">{{ n.label }}</a>
+          </sc-for>
+          <a href="https://wa.me/919428354524?text=Hello%20Reshma%27s%20Bridal%20Studio%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" rel="noopener" style="background:linear-gradient(135deg,#EBC978,#C9A24B);color:#320810;text-decoration:none;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:11px 20px;border-radius:2px;white-space:nowrap;">Book Now</a>
+        </nav>
+      </sc-if>
+      <sc-if value="{{ mobileNav }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleNav }}" aria-label="Menu" style="background:none;border:1px solid rgba(201,162,75,.5);color:#EBC978;width:46px;height:42px;border-radius:3px;cursor:pointer;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;">☰</button>
+      </sc-if>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#2a0710;border-top:1px solid rgba(201,162,75,.2);padding:10px clamp(18px,5vw,54px) 22px;display:flex;flex-direction:column;">
+        <sc-for list="{{ navLinks }}" as="n" hint-placeholder-count="7">
+          <a href="{{ n.href }}" onClick="{{ closeNav }}" style="color:#E7D6A6;text-decoration:none;font-size:15px;letter-spacing:.14em;text-transform:uppercase;padding:13px 2px;border-bottom:1px solid rgba(201,162,75,.12);">{{ n.label }}</a>
+        </sc-for>
+        <a href="https://wa.me/919428354524" target="_blank" rel="noopener" onClick="{{ closeNav }}" style="margin-top:16px;text-align:center;background:linear-gradient(135deg,#EBC978,#C9A24B);color:#320810;text-decoration:none;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:14px;border-radius:2px;">Book on WhatsApp</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="home" data-screen-label="Hero" style="position:relative;min-height:92vh;display:flex;align-items:center;background:#7A1225;overflow:hidden;">
+    <img src="assets/hero.jpg" alt="Bride at her mirror" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;"/>
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(30,4,10,.9) 0%,rgba(50,8,16,.72) 42%,rgba(90,13,26,.34) 100%);"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(30,4,10,.86) 0%,rgba(30,4,10,0) 42%);"></div>
+    <div style="position:relative;z-index:2;max-width:1280px;width:100%;margin:0 auto;padding:96px clamp(20px,6vw,80px);">
+      <div style="max-width:760px;">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:26px;">
+          <span style="height:1px;width:52px;background:#C9A24B;"></span>
+          <span style="color:#EBC978;font-size:13px;letter-spacing:.34em;text-transform:uppercase;">Reshma's Bridal Studio · Ahmedabad</span>
+        </div>
+        <h1 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#FBEFD0;font-size:clamp(42px,7.2vw,88px);line-height:1.02;margin:0 0 26px;letter-spacing:.005em;">Artistry That Makes Your Wedding Day <em style="font-style:italic;color:#EBC978;">Unforgettable</em></h1>
+        <p style="color:rgba(251,239,208,.9);font-size:clamp(17px,1.5vw,20px);line-height:1.6;font-weight:300;max-width:560px;margin:0 0 38px;">30 years of bridal makeup and hairstyling in Ahmedabad. Internationally certified. 200+ brides last year.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:16px;">
+          <a href="https://wa.me/919428354524?text=Hello%20Reshma%27s%20Bridal%20Studio%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" rel="noopener" style="background:linear-gradient(135deg,#EBC978,#C9A24B);color:#320810;text-decoration:none;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:17px 34px;border-radius:2px;box-shadow:0 10px 30px rgba(0,0,0,.35);">Book on WhatsApp</a>
+          <a href="#gallery" style="border:1px solid rgba(235,201,120,.6);color:#EBC978;text-decoration:none;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:400;padding:17px 34px;border-radius:2px;">View Gallery</a>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;justify-content:center;gap:clamp(24px,6vw,88px);padding:20px;border-top:1px solid rgba(201,162,75,.22);background:rgba(30,4,10,.4);flex-wrap:wrap;">
+      <div style="text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#EBC978;line-height:1;">30</div><div style="color:rgba(251,239,208,.7);font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:5px;">Years</div></div>
+      <div style="text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#EBC978;line-height:1;">200+</div><div style="color:rgba(251,239,208,.7);font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:5px;">Brides / Year</div></div>
+      <div style="text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#EBC978;line-height:1;">NYC</div><div style="color:rgba(251,239,208,.7);font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:5px;">Certified</div></div>
+      <div style="text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#EBC978;line-height:1;">ISO</div><div style="color:rgba(251,239,208,.7);font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-top:5px;">9001:2015</div></div>
+    </div>
+  </section>
+
+  <!-- ============ INTRO ============ -->
+  <section style="background:#F5E9C8;padding:clamp(56px,7vw,96px) clamp(20px,6vw,80px);text-align:center;">
+    <p data-reveal style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;color:#7A1225;font-size:clamp(24px,3.2vw,40px);line-height:1.4;max-width:920px;margin:0 auto;text-wrap:balance;">Every look is built from scratch — for your face, your outfit, your occasion — on a long-lasting, sweat-proof base made for Indian weddings and every camera in the room.</p>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" data-screen-label="About" style="background:#F5E9C8;padding:clamp(24px,4vw,56px) clamp(20px,6vw,80px) clamp(64px,8vw,120px);">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(32px,5vw,72px);align-items:center;">
+      <div data-reveal style="position:relative;">
+        <div style="position:absolute;inset:14px -14px -14px 14px;border:1px solid #C9A24B;border-radius:4px;"></div>
+        <img src="assets/owner.jpg" alt="Reshma Shah, founder" style="position:relative;width:100%;height:auto;display:block;border-radius:4px;box-shadow:0 24px 60px rgba(58,12,20,.28);"/>
+      </div>
+      <div data-reveal data-reveal-delay="140">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+          <span style="height:1px;width:46px;background:#C9A24B;"></span>
+          <span style="color:#7A1225;font-size:12px;letter-spacing:.28em;text-transform:uppercase;">The Founder</span>
+        </div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#4A0D1A;font-size:clamp(34px,4.4vw,54px);line-height:1.05;margin:0 0 22px;">Reshma Shah</h2>
+        <p style="color:#5a2029;font-size:16.5px;line-height:1.75;font-weight:300;margin:0 0 16px;">For 30 years, Reshma has done one thing and done it well — making brides look and feel their best on the one day that can't be redone. Last year alone, over 200 brides trusted her with that day.</p>
+        <p style="color:#5a2029;font-size:16.5px;line-height:1.75;font-weight:300;margin:0 0 16px;">She is internationally certified in makeup artistry (Advanced Institute of Aesthetics, New York), runs an ISO 9001:2015 certified studio and academy, and has been featured in Gujarat Samachar for her work.</p>
+        <p style="color:#5a2029;font-size:16.5px;line-height:1.75;font-weight:300;margin:0 0 24px;">Premium products — MAC, Huda, NARS, Dior, Charlotte Tilbury. Makeup, hair, jewellery and saree draping, done end to end, so you get ready in one place and walk out camera-ready.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <span style="border:1px solid rgba(122,18,37,.3);color:#7A1225;font-size:12px;letter-spacing:.1em;padding:8px 15px;border-radius:2px;">📍 Ghodasar, Ahmedabad</span>
+          <span style="border:1px solid rgba(122,18,37,.3);color:#7A1225;font-size:12px;letter-spacing:.1em;padding:8px 15px;border-radius:2px;">✆ 94283 54524</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" data-screen-label="Services" style="background:#7A1225;padding:clamp(64px,8vw,120px) clamp(20px,6vw,80px);position:relative;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div data-reveal style="text-align:center;margin-bottom:clamp(44px,5vw,72px);">
+        <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px;">
+          <span style="height:1px;width:40px;background:#C9A24B;"></span>
+          <span style="color:#EBC978;font-size:12px;letter-spacing:.28em;text-transform:uppercase;">What We Do</span>
+          <span style="height:1px;width:40px;background:#C9A24B;"></span>
+        </div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#FBEFD0;font-size:clamp(34px,4.6vw,56px);margin:0;">Looks for Every Occasion</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:rgba(201,162,75,.28);border:1px solid rgba(201,162,75,.28);border-radius:4px;overflow:hidden;">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+          <div data-reveal style="background:#7A1225;padding:36px 30px;min-height:190px;display:flex;flex-direction:column;transition:background .4s;" style-hover="background:#8c1930;">
+            <div style="font-family:'Cormorant Garamond',serif;font-style:italic;color:#C9A24B;font-size:26px;margin-bottom:14px;">{{ s.num }}</div>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#EBC978;font-size:25px;margin:0 0 12px;letter-spacing:.01em;">{{ s.title }}</h3>
+            <p style="color:rgba(251,239,208,.82);font-size:15px;line-height:1.6;font-weight:300;margin:0;">{{ s.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <p data-reveal style="text-align:center;color:rgba(251,239,208,.78);font-size:15.5px;line-height:1.7;font-weight:300;max-width:760px;margin:34px auto 0;">Plus <strong style="color:#EBC978;font-weight:500;">hairstyling</strong> — bridal bun, soft curls, engagement waves, party — and <strong style="color:#EBC978;font-weight:500;">saree draping</strong>, included end-to-end.</p>
+    </div>
+  </section>
+
+  <!-- ============ RECOGNISED STRIP ============ -->
+  <section style="background:#320810;padding:clamp(30px,4vw,44px) clamp(20px,6vw,60px);">
+    <div data-reveal style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(18px,4vw,52px);">
+      <span style="color:#EBC978;font-size:11px;letter-spacing:.24em;text-transform:uppercase;">Recognised For</span>
+      <span style="font-family:'Cormorant Garamond',serif;color:#E7D6A6;font-size:19px;">Internationally Certified · New York</span>
+      <span style="color:#C9A24B;">◆</span>
+      <span style="font-family:'Cormorant Garamond',serif;color:#E7D6A6;font-size:19px;">ISO 9001:2015</span>
+      <span style="color:#C9A24B;">◆</span>
+      <span style="font-family:'Cormorant Garamond',serif;color:#E7D6A6;font-size:19px;">Featured in Gujarat Samachar</span>
+      <span style="color:#C9A24B;">◆</span>
+      <span style="font-family:'Cormorant Garamond',serif;color:#E7D6A6;font-size:19px;">Guinness World Records Participant</span>
+    </div>
+  </section>
+
+  <!-- ============ PRICING ============ -->
+  <section id="pricing" data-screen-label="Pricing" style="background:#F5E9C8;padding:clamp(64px,8vw,120px) clamp(20px,6vw,80px);">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div data-reveal style="text-align:center;margin-bottom:clamp(44px,5vw,68px);">
+        <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px;">
+          <span style="height:1px;width:40px;background:#C9A24B;"></span>
+          <span style="color:#7A1225;font-size:12px;letter-spacing:.28em;text-transform:uppercase;">Pricing</span>
+          <span style="height:1px;width:40px;background:#C9A24B;"></span>
+        </div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#4A0D1A;font-size:clamp(34px,4.6vw,56px);margin:0;">Per-Look Investment</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;">
+        <sc-for list="{{ pricing }}" as="p" hint-placeholder-count="6">
+          <div data-reveal style="background:#fff;border:1px solid rgba(201,162,75,.5);border-radius:5px;padding:30px 28px;box-shadow:0 12px 34px rgba(74,13,26,.07);">
+            <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#7A1225;font-size:26px;margin:0 0 18px;border-bottom:1px solid rgba(201,162,75,.4);padding-bottom:14px;">{{ p.name }}</h3>
+            <div style="display:flex;flex-direction:column;gap:11px;">
+              <sc-for list="{{ p.tiers }}" as="t" hint-placeholder-count="4">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;">
+                  <span style="color:#5a2029;font-size:15px;font-weight:300;">{{ t.label }}</span>
+                  <span style="color:#4A0D1A;font-size:16px;font-weight:500;font-family:'Jost';">{{ t.price }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ p.note }}" hint-placeholder-val="">
+              <p style="margin:16px 0 0;color:#8a6a2a;font-size:12.5px;font-style:italic;line-height:1.5;">{{ p.note }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <p data-reveal style="text-align:center;color:#7A1225;font-size:14px;letter-spacing:.04em;margin:30px auto 0;">Travel — within city +₹2,000 · out of city +₹5,000 · out of station per city</p>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section id="gallery" data-screen-label="Gallery" style="background:#320810;padding:clamp(64px,8vw,120px) clamp(16px,5vw,80px);">
+    <div style="max-width:1080px;margin:0 auto;">
+      <div data-reveal style="text-align:center;margin-bottom:clamp(38px,4vw,58px);">
+        <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px;">
+          <span style="height:1px;width:40px;background:#C9A24B;"></span>
+          <span style="color:#EBC978;font-size:12px;letter-spacing:.28em;text-transform:uppercase;">Portfolio</span>
+          <span style="height:1px;width:40px;background:#C9A24B;"></span>
+        </div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#FBEFD0;font-size:clamp(34px,4.6vw,56px);margin:0;">The Gallery</h2>
+      </div>
+      <div data-reveal onMouseEnter="{{ onHoverIn }}" onMouseLeave="{{ onHoverOut }}" style="position:relative;">
+        <div style="position:relative;background:radial-gradient(120% 120% at 50% 30%,#1c0810,#120509);border:1px solid rgba(201,162,75,.4);border-radius:6px;overflow:hidden;height:clamp(380px,62vh,660px);display:flex;align-items:center;justify-content:center;">
+          <img src="{{ curSrc }}" alt="{{ curDesc }}" style="max-width:100%;max-height:100%;object-fit:contain;display:block;"/>
+          <button onClick="{{ onPrev }}" aria-label="Previous" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;border:1px solid rgba(235,201,120,.5);background:rgba(30,4,10,.55);color:#EBC978;font-size:26px;line-height:1;cursor:pointer;backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;">‹</button>
+          <button onClick="{{ onNext }}" aria-label="Next" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;border:1px solid rgba(235,201,120,.5);background:rgba(30,4,10,.55);color:#EBC978;font-size:26px;line-height:1;cursor:pointer;backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;">›</button>
+          <div style="position:absolute;top:14px;right:18px;background:rgba(30,4,10,.6);color:#EBC978;font-size:12px;letter-spacing:.14em;padding:6px 12px;border-radius:2px;border:1px solid rgba(235,201,120,.3);">{{ curNum }} / {{ total }}</div>
+        </div>
+        <p style="text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;color:#E7D6A6;font-size:clamp(18px,2.2vw,24px);line-height:1.4;margin:22px auto 0;max-width:680px;min-height:1.4em;">{{ curDesc }}</p>
+        <div style="display:flex;gap:9px;overflow-x:auto;padding:22px 4px 6px;scrollbar-width:thin;">
+          <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="12">
+            <img src="{{ t.src }}" alt="" loading="lazy" onClick="{{ t.onClick }}" style="{{ t.style }}"/>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CERTIFICATES ============ -->
+  <section id="certificates" data-screen-label="Certificates" style="position:relative;background:#0a0406;padding:clamp(70px,9vw,130px) clamp(18px,5vw,80px);overflow:hidden;">
+    <div style="position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:120%;height:60%;background:radial-gradient(60% 100% at 50% 0%,rgba(201,162,75,.18),transparent 70%);animation:rbsShimmer 7s ease-in-out infinite;pointer-events:none;"></div>
+    <div style="position:relative;max-width:1120px;margin:0 auto;">
+      <div data-reveal style="text-align:center;margin-bottom:clamp(46px,5vw,72px);">
+        <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px;">
+          <span style="height:1px;width:40px;background:#C9A24B;"></span>
+          <span style="color:#C9A24B;font-size:12px;letter-spacing:.28em;text-transform:uppercase;">Certificates &amp; Recognition</span>
+          <span style="height:1px;width:40px;background:#C9A24B;"></span>
+        </div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#EBC978;font-size:clamp(34px,4.8vw,60px);margin:0;">Credentials, Earned</h2>
+      </div>
+
+      <div data-cert-grid style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;margin-bottom:26px;">
+        <sc-for list="{{ certsT1 }}" as="c" hint-placeholder-count="2">
+          <figure data-cert-card onClick="{{ c.onClick }}" style="margin:0;cursor:pointer;background:linear-gradient(160deg,#1a1008,#0d0806);border:1px solid rgba(201,162,75,.4);border-radius:6px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.5);">
+            <div style="height:clamp(220px,28vw,300px);background:#f4efe4;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+              <img src="{{ c.src }}" alt="{{ c.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+            </div>
+            <figcaption style="padding:22px 24px;">
+              <span style="display:inline-block;color:#0a0406;background:#C9A24B;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;padding:4px 10px;border-radius:2px;margin-bottom:12px;">Headline Credential</span>
+              <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#F3E4BE;font-size:24px;line-height:1.2;margin:0 0 8px;">{{ c.title }}</h3>
+              <p style="color:rgba(235,201,120,.72);font-size:13.5px;letter-spacing:.02em;margin:0;">{{ c.meta }}</p>
+            </figcaption>
+          </figure>
+        </sc-for>
+      </div>
+
+      <div data-cert-grid style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
+        <sc-for list="{{ certsT2 }}" as="c" hint-placeholder-count="4">
+          <figure data-cert-card onClick="{{ c.onClick }}" style="margin:0;cursor:pointer;background:#120b07;border:1px solid rgba(201,162,75,.24);border-radius:5px;overflow:hidden;">
+            <div style="height:150px;background:#f4efe4;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+              <img src="{{ c.src }}" alt="{{ c.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+            </div>
+            <figcaption style="padding:16px 18px;">
+              <h4 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#E7D6A6;font-size:18px;line-height:1.25;margin:0 0 6px;">{{ c.title }}</h4>
+              <p style="color:rgba(235,201,120,.6);font-size:12px;margin:0;">{{ c.meta }}</p>
+            </figcaption>
+          </figure>
+        </sc-for>
+      </div>
+      <p data-reveal style="text-align:center;color:rgba(235,201,120,.5);font-size:12.5px;letter-spacing:.06em;margin:34px 0 0;">Tap any certificate to view it in full.</p>
+    </div>
+  </section>
+
+  <!-- ============ ACADEMY ============ -->
+  <section id="academy" data-screen-label="Academy" style="background:#F5E9C8;padding:clamp(64px,8vw,120px) clamp(20px,6vw,80px);">
+    <div style="max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(32px,5vw,64px);align-items:center;">
+      <div data-reveal>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+          <span style="height:1px;width:46px;background:#C9A24B;"></span>
+          <span style="color:#7A1225;font-size:12px;letter-spacing:.28em;text-transform:uppercase;">The Academy</span>
+        </div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#4A0D1A;font-size:clamp(32px,4.4vw,52px);line-height:1.06;margin:0 0 20px;">Learn from an Internationally Certified Artist</h2>
+        <p style="color:#5a2029;font-size:16.5px;line-height:1.75;font-weight:300;margin:0 0 16px;">Reshma holds a Teacher Certification in Makeup Artistry from the Advanced Institute of Aesthetics, New York, and has spent 30 years perfecting bridal makeup and hairstyling. Now she teaches it.</p>
+        <p style="color:#5a2029;font-size:16.5px;line-height:1.75;font-weight:300;margin:0 0 28px;">Train on real techniques, real products, and the same standards used on 200+ brides a year. ISO 9001:2015 certified for training and services.</p>
+        <a href="https://wa.me/919428354524?text=Hello%2C%20I%27d%20like%20to%20enquire%20about%20the%20makeup%20%26%20hairstyling%20course%20at%20Reshma%27s%20Bridal%20Studio%20%26%20Academy." target="_blank" rel="noopener" style="display:inline-block;background:#7A1225;color:#EBC978;text-decoration:none;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:16px 30px;border-radius:2px;">Enquire About Courses</a>
+      </div>
+      <div data-reveal data-reveal-delay="140" style="background:#320810;border:1px solid rgba(201,162,75,.4);border-radius:6px;padding:clamp(28px,4vw,44px);box-shadow:0 24px 60px rgba(58,12,20,.3);">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#EBC978;font-size:30px;margin:0 0 6px;">The Course</h3>
+        <p style="color:rgba(251,239,208,.7);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 26px;">Makeup &amp; Hairstyling · 3 Months</p>
+        <div style="display:flex;flex-direction:column;gap:0;">
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-top:1px solid rgba(201,162,75,.18);"><span style="color:rgba(251,239,208,.72);font-size:14.5px;font-weight:300;">Timing</span><span style="color:#F3E4BE;font-size:14.5px;">1:00 PM – 4:00 PM</span></div>
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-top:1px solid rgba(201,162,75,.18);"><span style="color:rgba(251,239,208,.72);font-size:14.5px;font-weight:300;">Makeup</span><span style="color:#F3E4BE;font-size:14.5px;">Basic to Airbrush</span></div>
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-top:1px solid rgba(201,162,75,.18);"><span style="color:rgba(251,239,208,.72);font-size:14.5px;font-weight:300;">Hairstyling</span><span style="color:#F3E4BE;font-size:14.5px;">Basic to International</span></div>
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-top:1px solid rgba(201,162,75,.18);"><span style="color:rgba(251,239,208,.72);font-size:14.5px;font-weight:300;">Batch size</span><span style="color:#F3E4BE;font-size:14.5px;">5 students</span></div>
+          <div style="display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-top:1px solid rgba(201,162,75,.18);border-bottom:1px solid rgba(201,162,75,.18);"><span style="color:rgba(251,239,208,.72);font-size:14.5px;font-weight:300;">Certificate</span><span style="color:#F3E4BE;font-size:14.5px;">ISO-marked, on completion</span></div>
+        </div>
+        <div style="margin-top:24px;display:flex;align-items:baseline;gap:12px;">
+          <span style="font-family:'Cormorant Garamond',serif;color:#EBC978;font-size:44px;line-height:1;">₹40,000</span>
+          <span style="color:rgba(251,239,208,.6);font-size:13px;">makeup + hairstyling combined</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ APPOINTMENT ============ -->
+  <section id="appointment" data-screen-label="Appointment" style="background:#7A1225;padding:clamp(64px,8vw,120px) clamp(20px,6vw,80px);">
+    <div style="max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(32px,5vw,64px);align-items:start;">
+      <div data-reveal>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+          <span style="height:1px;width:46px;background:#C9A24B;"></span>
+          <span style="color:#EBC978;font-size:12px;letter-spacing:.28em;text-transform:uppercase;">Book Your Date</span>
+        </div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#FBEFD0;font-size:clamp(34px,4.6vw,56px);line-height:1.04;margin:0 0 20px;">Reserve Reshma for Your Day</h2>
+        <p style="color:rgba(251,239,208,.85);font-size:16.5px;line-height:1.7;font-weight:300;margin:0 0 14px;">Tell us a few details and we'll open a pre-filled WhatsApp message — no forms stored, no accounts.</p>
+        <p style="color:#EBC978;font-size:15px;font-style:italic;font-family:'Cormorant Garamond',serif;margin:0;">We reply within a few hours.</p>
+      </div>
+      <div data-reveal data-reveal-delay="120" style="background:#320810;border:1px solid rgba(201,162,75,.4);border-radius:6px;padding:clamp(26px,4vw,40px);">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <label style="display:block;">
+            <span style="display:block;color:#EBC978;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px;">Name</span>
+            <input value="{{ fName }}" onInput="{{ onName }}" placeholder="Your full name" style="width:100%;box-sizing:border-box;background:#1e060c;border:1px solid rgba(201,162,75,.35);border-radius:3px;color:#FBEFD0;font-family:'Jost';font-size:15px;padding:13px 15px;outline:none;"/>
+          </label>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;">
+            <label style="display:block;">
+              <span style="display:block;color:#EBC978;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px;">Event Date</span>
+              <input type="date" value="{{ fDate }}" onInput="{{ onDate }}" style="width:100%;box-sizing:border-box;background:#1e060c;border:1px solid rgba(201,162,75,.35);border-radius:3px;color:#FBEFD0;font-family:'Jost';font-size:15px;padding:12px 15px;outline:none;color-scheme:dark;"/>
+            </label>
+            <label style="display:block;">
+              <span style="display:block;color:#EBC978;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px;">Occasion</span>
+              <select value="{{ fOccasion }}" onChange="{{ onOccasion }}" style="width:100%;box-sizing:border-box;background:#1e060c;border:1px solid rgba(201,162,75,.35);border-radius:3px;color:#FBEFD0;font-family:'Jost';font-size:15px;padding:12px 15px;outline:none;">
+                <option>Bridal</option>
+                <option>Engagement / Roka</option>
+                <option>Haldi / Mehndi</option>
+                <option>Reception</option>
+                <option>Party / Sider</option>
+                <option>Photoshoot</option>
+              </select>
+            </label>
+          </div>
+          <label style="display:block;">
+            <span style="display:block;color:#EBC978;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px;">Phone <span style="opacity:.5;text-transform:none;letter-spacing:0;">(optional)</span></span>
+            <input value="{{ fPhone }}" onInput="{{ onPhone }}" placeholder="Your number" style="width:100%;box-sizing:border-box;background:#1e060c;border:1px solid rgba(201,162,75,.35);border-radius:3px;color:#FBEFD0;font-family:'Jost';font-size:15px;padding:13px 15px;outline:none;"/>
+          </label>
+          <label style="display:block;">
+            <span style="display:block;color:#EBC978;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px;">Message <span style="opacity:.5;text-transform:none;letter-spacing:0;">(optional)</span></span>
+            <textarea value="{{ fMessage }}" onInput="{{ onMessage }}" rows="3" placeholder="Anything you'd like us to know" style="width:100%;box-sizing:border-box;background:#1e060c;border:1px solid rgba(201,162,75,.35);border-radius:3px;color:#FBEFD0;font-family:'Jost';font-size:15px;padding:13px 15px;outline:none;resize:vertical;"></textarea>
+          </label>
+          <button onClick="{{ sendEnquiry }}" style="margin-top:6px;width:100%;background:linear-gradient(135deg,#EBC978,#C9A24B);color:#320810;border:none;font-family:'Jost';font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:16px;border-radius:3px;cursor:pointer;">Send Enquiry on WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section id="testimonials" data-screen-label="Testimonials" style="background:#F5E9C8;padding:clamp(64px,8vw,110px) clamp(20px,6vw,80px);text-align:center;">
+    <div data-reveal style="max-width:760px;margin:0 auto;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px;">
+        <span style="height:1px;width:40px;background:#C9A24B;"></span>
+        <span style="color:#7A1225;font-size:12px;letter-spacing:.28em;text-transform:uppercase;">Testimonials</span>
+        <span style="height:1px;width:40px;background:#C9A24B;"></span>
+      </div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#4A0D1A;font-size:clamp(32px,4.4vw,52px);margin:0 0 18px;">Kind Words from Our Brides</h2>
+      <p style="color:#7a4a52;font-size:16px;font-weight:300;line-height:1.7;margin:0 0 30px;">We're collecting reviews from real past brides. Their words will live here soon.</p>
+      <a href="https://www.instagram.com/reshma_s___bridal_studio/" target="_blank" rel="noopener" style="display:inline-block;border:1px solid rgba(122,18,37,.4);color:#7A1225;text-decoration:none;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:14px 28px;border-radius:2px;">See Real Brides on Instagram</a>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" data-screen-label="Contact" style="background:#320810;padding:clamp(64px,8vw,120px) clamp(20px,6vw,80px);">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div data-reveal style="text-align:center;margin-bottom:clamp(40px,5vw,60px);">
+        <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px;">
+          <span style="height:1px;width:40px;background:#C9A24B;"></span>
+          <span style="color:#EBC978;font-size:12px;letter-spacing:.28em;text-transform:uppercase;">Get in Touch</span>
+          <span style="height:1px;width:40px;background:#C9A24B;"></span>
+        </div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#FBEFD0;font-size:clamp(34px,4.6vw,56px);margin:0;">Visit the Studio</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,4vw,48px);align-items:start;">
+        <div data-reveal style="display:flex;flex-direction:column;gap:22px;">
+          <div>
+            <div style="color:#C9A24B;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;">Address</div>
+            <p style="color:#E7D6A6;font-size:16px;line-height:1.6;font-weight:300;margin:0;">C/198, Mangalam Society Part-3, Near Mangleshwar Temple, Ghodasar Kans Road, Ahmedabad, Gujarat 380050</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;">
+            <div>
+              <div style="color:#C9A24B;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;">WhatsApp</div>
+              <a href="https://wa.me/919428354524" target="_blank" rel="noopener" style="color:#F3E4BE;font-size:16px;text-decoration:none;display:block;">94283 54524</a>
+              <span style="color:rgba(235,201,120,.55);font-size:14px;">Alt: 83203 11918</span>
+            </div>
+            <div>
+              <div style="color:#C9A24B;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;">Email</div>
+              <a href="mailto:reshmabridalstudio@gmail.com" style="color:#F3E4BE;font-size:15px;text-decoration:none;word-break:break-word;">reshmabridalstudio@gmail.com</a>
+            </div>
+          </div>
+          <div>
+            <div style="color:#C9A24B;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;">Follow</div>
+            <a href="https://www.instagram.com/reshma_s___bridal_studio/" target="_blank" rel="noopener" style="color:#F3E4BE;font-size:15px;text-decoration:none;">@reshma_s___bridal_studio</a>
+          </div>
+          <div>
+            <div style="color:#C9A24B;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;">We Accept</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;">
+              <span style="border:1px solid rgba(201,162,75,.4);color:#E7D6A6;font-size:13px;padding:7px 14px;border-radius:3px;">PhonePe</span>
+              <span style="border:1px solid rgba(201,162,75,.4);color:#E7D6A6;font-size:13px;padding:7px 14px;border-radius:3px;">GPay</span>
+              <span style="border:1px solid rgba(201,162,75,.4);color:#E7D6A6;font-size:13px;padding:7px 14px;border-radius:3px;">Paytm</span>
+            </div>
+          </div>
+          <a href="https://wa.me/919428354524?text=Hello%20Reshma%27s%20Bridal%20Studio%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" rel="noopener" style="align-self:flex-start;background:linear-gradient(135deg,#EBC978,#C9A24B);color:#320810;text-decoration:none;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:15px 30px;border-radius:2px;">Book on WhatsApp</a>
+        </div>
+        <div data-reveal data-reveal-delay="120" style="border:1px solid rgba(201,162,75,.35);border-radius:6px;overflow:hidden;min-height:340px;">
+          <iframe title="Map to Reshma's Bridal Studio" src="https://www.google.com/maps?q=Ghodasar%20Kans%20Road%2C%20Ahmedabad%2C%20Gujarat%20380050&output=embed" style="width:100%;height:100%;min-height:340px;border:0;display:block;filter:saturate(.85);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#1e060c;padding:clamp(48px,6vw,72px) clamp(20px,6vw,80px) 34px;border-top:1px solid rgba(201,162,75,.2);">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:36px;align-items:start;">
+      <div>
+        <img src="assets/logo.png" alt="Reshma's Bridal Studio & Academy" style="height:74px;width:auto;display:block;margin-bottom:16px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));"/>
+        <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:#C9A24B;font-size:18px;margin:0 0 6px;">Artistry That Makes Your Wedding Day Unforgettable</p>
+        <p style="color:rgba(235,201,120,.55);font-size:13px;margin:0;">Reshma's Bridal Studio &amp; Academy · Ghodasar, Ahmedabad</p>
+      </div>
+      <div>
+        <div style="color:#C9A24B;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;">Explore</div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <a href="#about" style="color:#E7D6A6;font-size:14px;text-decoration:none;">About</a>
+          <a href="#services" style="color:#E7D6A6;font-size:14px;text-decoration:none;">Services</a>
+          <a href="#pricing" style="color:#E7D6A6;font-size:14px;text-decoration:none;">Pricing</a>
+          <a href="#gallery" style="color:#E7D6A6;font-size:14px;text-decoration:none;">Gallery</a>
+        </div>
+      </div>
+      <div>
+        <div style="color:#C9A24B;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;">More</div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <a href="#academy" style="color:#E7D6A6;font-size:14px;text-decoration:none;">Academy</a>
+          <a href="#certificates" style="color:#E7D6A6;font-size:14px;text-decoration:none;">Certificates</a>
+          <a href="#appointment" style="color:#E7D6A6;font-size:14px;text-decoration:none;">Appointment</a>
+          <a href="#contact" style="color:#E7D6A6;font-size:14px;text-decoration:none;">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div style="color:#C9A24B;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;">Reach Us</div>
+        <a href="https://wa.me/919428354524" target="_blank" rel="noopener" style="color:#E7D6A6;font-size:14px;text-decoration:none;display:block;margin-bottom:9px;">WhatsApp · 94283 54524</a>
+        <a href="mailto:reshmabridalstudio@gmail.com" style="color:#E7D6A6;font-size:14px;text-decoration:none;display:block;margin-bottom:9px;word-break:break-word;">reshmabridalstudio@gmail.com</a>
+        <a href="https://www.instagram.com/reshma_s___bridal_studio/" target="_blank" rel="noopener" style="color:#E7D6A6;font-size:14px;text-decoration:none;display:block;">Instagram</a>
+      </div>
+    </div>
+    <div style="max-width:1180px;margin:38px auto 0;padding-top:22px;border-top:1px solid rgba(201,162,75,.14);text-align:center;">
+      <p style="color:rgba(235,201,120,.4);font-size:12.5px;letter-spacing:.05em;margin:0;">© 2026 Reshma's Bridal Studio &amp; Academy. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ============ STICKY WHATSAPP ============ -->
+  <a href="https://wa.me/919428354524?text=Hello%20Reshma%27s%20Bridal%20Studio%2C%20I%27d%20like%20to%20book%20an%20appointment." target="_blank" rel="noopener" aria-label="Book on WhatsApp" style="position:fixed;right:20px;bottom:20px;z-index:300;display:flex;align-items:center;gap:10px;background:#1faf52;color:#fff;text-decoration:none;font-size:14px;font-weight:500;letter-spacing:.03em;padding:14px 20px;border-radius:40px;box-shadow:0 10px 30px rgba(0,0,0,.35);">
+    <svg width="22" height="22" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.8c1.9 1 4 1.6 6 1.6 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.7c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1-1.6-1.6-3.5-1.6-5.4C5.5 9.8 10.2 5.2 16 5.2s10.5 4.6 10.5 10.3S21.8 25.7 16 25.7zm5.8-7.7c-.3-.2-1.9-.9-2.1-1s-.5-.2-.7.2-.8 1-1 1.2-.4.3-.7.1a8.5 8.5 0 01-2.5-1.5 9.4 9.4 0 01-1.7-2.2c-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5s0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1-1.1 2.6s1.1 3 1.3 3.2c.2.2 2.3 3.5 5.5 4.9.8.3 1.4.5 1.8.7.8.2 1.5.2 2 .1.6-.1 1.9-.8 2.1-1.5s.3-1.4.2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>
+    <span style="white-space:nowrap;">Book on WhatsApp</span>
+  </a>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;z-index:400;background:rgba(8,3,5,.92);display:flex;align-items:center;justify-content:center;padding:clamp(20px,5vw,64px);cursor:zoom-out;">
+      <button onClick="{{ closeLightbox }}" aria-label="Close" style="position:absolute;top:22px;right:26px;width:48px;height:48px;border-radius:50%;border:1px solid rgba(235,201,120,.5);background:rgba(30,4,10,.6);color:#EBC978;font-size:24px;line-height:1;cursor:pointer;">✕</button>
+      <figure style="margin:0;max-width:900px;max-height:88vh;display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <img src="{{ lightboxSrc }}" alt="{{ lightboxCap }}" style="max-width:100%;max-height:76vh;object-fit:contain;border:1px solid rgba(201,162,75,.4);border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,.6);"/>
+        <figcaption style="font-family:'Cormorant Garamond',serif;color:#EBC978;font-size:20px;text-align:center;">{{ lightboxCap }}</figcaption>
+      </figure>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    vw: (typeof window !== "undefined" ? window.innerWidth : 1200),
+    gIndex: 0,
+    paused: false,
+    menuOpen: false,
+    lightbox: null,
+    form: { name: "", date: "", occasion: "Bridal", phone: "", message: "" },
+  };
+
+  navLinks = [
+    { href: "#about", label: "About" },
+    { href: "#services", label: "Services" },
+    { href: "#pricing", label: "Pricing" },
+    { href: "#gallery", label: "Gallery" },
+    { href: "#academy", label: "Academy" },
+    { href: "#certificates", label: "Certificates" },
+    { href: "#contact", label: "Contact" },
+  ];
+
+  services = [
+    { num: "01", title: "Bridal", desc: "The one look that lives in every photograph, forever." },
+    { num: "02", title: "Engagement / Roka", desc: "Soft glam to bold — matched to your outfit and the moment." },
+    { num: "03", title: "Haldi / Mehndi", desc: "Fresh, dewy and natural — made for daytime rituals." },
+    { num: "04", title: "Reception", desc: "Show-stopping glam for your big evening." },
+    { num: "05", title: "Siders / Party", desc: "Flawless looks for the family and friends by your side." },
+    { num: "06", title: "Corporate / Photoshoot", desc: "Clean, camera-ready makeup for shoots and business portraits." },
+  ];
+
+  pricing = [
+    { name: "Bridal Makeup", tiers: [
+      { label: "Classic", price: "₹9,000" }, { label: "HD", price: "₹12,000" },
+      { label: "Airbrush", price: "₹15,000" }, { label: "Signature", price: "₹19,000" } ], note: "" },
+    { name: "Engagement / Roka", tiers: [
+      { label: "Soft Glam", price: "₹5,000" }, { label: "HD", price: "₹6,000" },
+      { label: "Airbrush", price: "₹7,000" } ], note: "" },
+    { name: "Haldi / Mehndi", tiers: [
+      { label: "HD", price: "₹4,000" }, { label: "Ultra HD", price: "₹5,000" },
+      { label: "Airbrush", price: "₹7,000" } ], note: "" },
+    { name: "Reception", tiers: [
+      { label: "Classic", price: "₹5,000" }, { label: "HD", price: "₹7,000" },
+      { label: "Airbrush", price: "₹10,000" }, { label: "Signature", price: "₹13,000" } ], note: "" },
+    { name: "Siders / Party", tiers: [
+      { label: "HD", price: "₹3,500" } ], note: "Includes jewellery, hair and saree draping." },
+    { name: "Corporate & Photoshoot", tiers: [
+      { label: "Corporate", price: "₹5,000" }, { label: "Outdoor", price: "₹8,000" } ], note: "" },
+  ];
+
+  certsT1 = [
+    { src: "assets/cert-01.jpg", title: "Teacher Certification, Makeup Artistry", meta: "Advanced Institute of Aesthetics, New York · 392 clock hours · 2020" },
+    { src: "assets/cert-05.jpg", title: "Featured in Gujarat Samachar Plus", meta: "Press feature · 2017" },
+  ];
+  certsT2 = [
+    { src: "assets/cert-07.jpg", title: "ISO 9001:2015 Certified", meta: "Training & Services · valid to 2027" },
+    { src: "assets/cert-06.png", title: "International Hairstyling Masterclass", meta: "Georgy Kot Academy · online marathon · 2020" },
+    { src: "assets/cert-03.jpg", title: "Ahmedabad Business Excellence Award", meta: "Makeup Artist of the Year · 2024" },
+    { src: "assets/cert-02.jpg", title: "Guinness World Records", meta: "Group participant · Most Users in a Makeup Hangout · 1,146 · 2020" },
+  ];
+
+  descriptions = [
+    "Elegant bridal portrait with soft lighting, capturing timeless grace",
+    "Radiant bride in a floral veil, dreamy ambience",
+    "Classic white gown against a pastel backdrop, serene elegance",
+    "Golden hour glow highlighting intricate lace details",
+    "Romantic couple silhouette, warm sunset hues",
+    "Close-up of delicate bridal jewellery, sparkling brilliance",
+    "Elegant wedding party shot, coordinated pastel tones",
+    "Graceful bridal walk down a historic aisle, timeless architecture",
+    "Intimate moment of the bride and groom sharing a laugh",
+    "Stunning bridal bouquet, vibrant blossoms in soft focus",
+    "Elegant black-tie reception scene, lively celebration",
+    "Bride's veil gently flowing in a breezy garden setting",
+    "Chic modern wedding dress, sleek lines and minimalism",
+    "Dramatic lighting accentuating the groom's classic tuxedo",
+    "Soft pastel decor creating a romantic atmosphere",
+    "Golden ornamental arch framing the couple's vows",
+    "Candid laughter among guests, joyful celebration",
+    "Elegant bridal cake adorned with fresh flowers",
+    "Romantic sunset backdrop for the first dance",
+    "Delicate lace detailing on the bridal gown, close-up",
+    "Warm candlelight dinner setting, intimate ambiance",
+    "Grand ballroom with crystal chandeliers, opulent elegance",
+    "Bridal party sharing a playful moment, bright smiles",
+    "Elegant ribbon tie on the wedding dress, subtle charm",
+    "Groom adjusting cufflinks, poised and confident",
+    "Couple's hands entwined, rings glinting softly",
+    "Bridesmaids in coordinated dresses, harmonious palette",
+    "Stunning outdoor ceremony under a floral arch",
+    "Captivating night sky lit by fairy lights",
+    "Classic black-and-white portrait of the bride, timeless beauty",
+    "Bride's veil catching the gentle wind, ethereal look",
+    "Reception dance floor alive with vibrant energy",
+    "Heartfelt farewell moment, confetti raining down",
+  ];
+
+  constructor(props) {
+    super(props);
+    this.gallery = this.descriptions.map((desc, i) => ({
+      src: "assets/gallery-" + String(i + 1).padStart(2, "0") + ".jpg",
+      desc,
+    }));
+    this._onResize = () => this.setState({ vw: window.innerWidth });
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", this._onResize);
+    this._timer = setInterval(() => {
+      if (!this.state.paused && !this.state.lightbox) this.next();
+    }, 5000);
+    requestAnimationFrame(() => this.setupMotion());
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this._onResize);
+    clearInterval(this._timer);
+    if (this._io) this._io.disconnect();
+    if (this._certIo) this._certIo.disconnect();
+  }
+
+  reduceMotion() {
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  setupMotion() {
+    if (this.reduceMotion()) return;
+    const ease = "cubic-bezier(.16,.7,.2,1)";
+
+    // General fade + rise
+    const els = Array.from(document.querySelectorAll("[data-reveal]"));
+    els.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(40px)";
+      el.style.transition = "opacity 1.05s " + ease + ", transform 1.05s " + ease;
+      el.style.willChange = "opacity, transform";
+    });
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const d = parseInt(el.getAttribute("data-reveal-delay") || "0", 10);
+          el.style.transitionDelay = d / 1000 + "s";
+          el.style.opacity = "1";
+          el.style.transform = "none";
+          this._io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
+    els.forEach((el) => this._io.observe(el));
+
+    // Certificate theatrical reveal
+    const cards = Array.from(document.querySelectorAll("[data-cert-card]"));
+    cards.forEach((el, i) => {
+      const rot = i % 2 === 0 ? -7 : 6;
+      el.style.opacity = "0";
+      el.style.transform = "translateY(64px) rotate(" + rot + "deg) scale(.9)";
+      el.style.transition = "opacity .9s " + ease + ", transform .9s " + ease;
+      el.style.willChange = "opacity, transform";
+    });
+    const grids = Array.from(document.querySelectorAll("[data-cert-grid]"));
+    this._certIo = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const inner = Array.from(e.target.querySelectorAll("[data-cert-card]"));
+          inner.forEach((el, i) => {
+            setTimeout(() => {
+              el.style.opacity = "1";
+              el.style.transform = "none";
+            }, 180 + i * 220);
+          });
+          this._certIo.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    grids.forEach((g) => this._certIo.observe(g));
+  }
+
+  next() { this.setState((s) => ({ gIndex: (s.gIndex + 1) % this.gallery.length })); }
+  prev() { this.setState((s) => ({ gIndex: (s.gIndex - 1 + this.gallery.length) % this.gallery.length })); }
+  go(i) { this.setState({ gIndex: i }); }
+
+  openLightbox(list, i) {
+    const c = list[i];
+    this.setState({ lightbox: { src: c.src, cap: c.title + " — " + c.meta } });
+  }
+
+  sendEnquiry() {
+    const f = this.state.form;
+    let lines = [
+      "Hello Reshma's Bridal Studio, I'd like to book an appointment.",
+      "",
+      "Name: " + (f.name || "-"),
+      "Event date: " + (f.date || "-"),
+      "Occasion: " + f.occasion,
+    ];
+    if (f.phone) lines.push("Phone: " + f.phone);
+    if (f.message) lines.push("Message: " + f.message);
+    const url = "https://wa.me/919428354524?text=" + encodeURIComponent(lines.join("\n"));
+    window.open(url, "_blank", "noopener");
+  }
+
+  setForm(key, val) {
+    this.setState((s) => ({ form: Object.assign({}, s.form, { [key]: val }) }));
+  }
+
+  renderVals() {
+    const s = this.state;
+    const mobile = s.vw < 880;
+    const cur = this.gallery[s.gIndex];
+
+    const thumbs = this.gallery.map((g, i) => {
+      const active = i === s.gIndex;
+      return {
+        src: g.src,
+        onClick: () => this.go(i),
+        style: {
+          width: "70px", height: "86px", flex: "0 0 auto", objectFit: "cover",
+          objectPosition: "center top", cursor: "pointer", borderRadius: "3px",
+          border: active ? "2px solid #EBC978" : "2px solid transparent",
+          opacity: active ? 1 : 0.5, transition: "opacity .3s, border-color .3s",
+        },
+      };
+    });
+
+    const withClick = (list) => list.map((c, i) => ({
+      src: c.src, title: c.title, meta: c.meta,
+      onClick: () => this.openLightbox(list, i),
+    }));
+
+    return {
+      navLinks: this.navLinks,
+      desktopNav: !mobile,
+      mobileNav: mobile,
+      menuOpen: s.menuOpen,
+      toggleNav: () => this.setState((st) => ({ menuOpen: !st.menuOpen })),
+      closeNav: () => this.setState({ menuOpen: false }),
+
+      services: this.services,
+      pricing: this.pricing,
+
+      curSrc: cur.src,
+      curDesc: cur.desc,
+      curNum: String(s.gIndex + 1).padStart(2, "0"),
+      total: String(this.gallery.length),
+      thumbs,
+      onPrev: () => this.prev(),
+      onNext: () => this.next(),
+      onHoverIn: () => this.setState({ paused: true }),
+      onHoverOut: () => this.setState({ paused: false }),
+
+      certsT1: withClick(this.certsT1),
+      certsT2: withClick(this.certsT2),
+
+      fName: s.form.name, fDate: s.form.date, fOccasion: s.form.occasion,
+      fPhone: s.form.phone, fMessage: s.form.message,
+      onName: (e) => this.setForm("name", e.target.value),
+      onDate: (e) => this.setForm("date", e.target.value),
+      onOccasion: (e) => this.setForm("occasion", e.target.value),
+      onPhone: (e) => this.setForm("phone", e.target.value),
+      onMessage: (e) => this.setForm("message", e.target.value),
+      sendEnquiry: () => this.sendEnquiry(),
+
+      lightboxOpen: !!s.lightbox,
+      lightboxSrc: s.lightbox ? s.lightbox.src : "",
+      lightboxCap: s.lightbox ? s.lightbox.cap : "",
+      closeLightbox: () => this.setState({ lightbox: null }),
+    };
+  }
+}
+</script>
+</body>
+</html>
