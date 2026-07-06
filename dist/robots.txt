@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shahkavya23.github.io/reshma-bridal-studio-31/sitemap.xml
